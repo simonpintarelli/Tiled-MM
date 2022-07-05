@@ -1,10 +1,10 @@
 name: VersionChecker
 
-on:
-  push:
-    tags:
-      - 'v*'
-
+# on:
+#   push:
+#     tags:
+#       - 'v*'
+on: [push]
 jobs:
   checker:
     runs-on: ubuntu-latest
@@ -14,9 +14,9 @@ jobs:
     - name: Version check
       id: check
       run: |
-           mkdir build 
-           cd build 
-           cmake .. 
+           mkdir build
+           cd build
+           cmake ..
            CMAKE_VERSION="v$(cat CMakeCache.txt | grep '^CMAKE_PROJECT_VERSION\b' | cut -d "=" -f2)"
            GIT_VERSION=$(git describe --tags --abbrev=0)
            if [ "$CMAKE_VERSION" != "$GIT_VERSION" ]; then
